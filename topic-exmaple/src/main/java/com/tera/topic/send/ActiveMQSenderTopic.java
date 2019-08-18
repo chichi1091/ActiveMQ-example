@@ -20,7 +20,7 @@ public class ActiveMQSenderTopic {
 
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-            Destination destination = session.createQueue("TEST.FOO");
+            Destination destination = session.createTopic("TEST.TOPIC");
 
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);

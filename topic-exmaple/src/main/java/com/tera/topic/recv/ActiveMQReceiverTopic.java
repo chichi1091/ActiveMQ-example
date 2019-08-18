@@ -3,6 +3,7 @@ package com.tera.topic.recv;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.util.UUID;
 
 public class ActiveMQReceiverTopic implements ExceptionListener {
     public static void main(String[] args) {
@@ -15,17 +16,20 @@ public class ActiveMQReceiverTopic implements ExceptionListener {
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
             Connection connection = connectionFactory.createConnection();
-            connection.start();
 
+            String consumerId = "consumer-" + UUID.randomUUID();
+            connection.setClientID(consumerId);
+
+            connection.start();
             connection.setExceptionListener(this);
 
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-            Destination destination = session.createQueue("TEST.FOO");
+            Topic topic = session.createTopic("TEST.TOPIC");
 
-            MessageConsumer consumer = session.createConsumer(destination);
+            MessageConsumer consumer = session.createDurableSubscriber(topic, consumerId);
 
-            Message message = consumer.receive(1000);
+            Message message = consumer.receive();
 
             if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
