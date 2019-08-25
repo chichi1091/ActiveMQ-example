@@ -26,6 +26,12 @@ public class PooledJmsSenderTopic {
             MessageProducer messageProducer = session.createProducer(topic);
 
             TextMessage message = session.createTextMessage(messagePayload);
+
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.add(Calendar.MINUTE, 5);
+//            Date date = calendar.getTime();
+//            message.setJMSDeliveryTime(date.getTime());
+
             messageProducer.send(message, DeliveryMode.NON_PERSISTENT, Message.DEFAULT_PRIORITY, Message.DEFAULT_TIME_TO_LIVE);
 
             connection.close();
