@@ -3,6 +3,7 @@ package com.tera.topic.recv;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ActiveMQReceiverTopic implements ExceptionListener {
@@ -31,6 +32,7 @@ public class ActiveMQReceiverTopic implements ExceptionListener {
 
             Message message = consumer.receive();
 
+            System.out.println(LocalDateTime.now());
             if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
                 String text = textMessage.getText();

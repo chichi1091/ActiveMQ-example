@@ -5,6 +5,7 @@ import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class PooledJmsReceiverTopic {
@@ -31,12 +32,12 @@ public class PooledJmsReceiverTopic {
 
             TextMessage receivedMessage = (TextMessage) messageConsumer.receive();
             if (receivedMessage != null) {
-                System.out.print(receivedMessage.getText());
+                System.out.println(receivedMessage.getText());
             } else {
                 System.out.println("No message received within the given timeout!");
             }
 
-            System.out.println();
+            System.out.println(LocalDateTime.now());
 
             connection.close();
         } catch (Exception exp) {

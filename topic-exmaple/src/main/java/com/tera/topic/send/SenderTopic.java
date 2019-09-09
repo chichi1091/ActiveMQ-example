@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.ScheduledMessage;
 
 import javax.jms.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,10 @@ public class SenderTopic {
             String json = mapper.writeValueAsString(lists);
 
             TextMessage msg = session.createTextMessage(json);
+            long time = 60 * 1000;
+            msg.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, time);
+
+            System.out.println(LocalDateTime.now());
             publisher.publish(msg);
         } catch (JMSException | JsonProcessingException e) {
             e.printStackTrace();

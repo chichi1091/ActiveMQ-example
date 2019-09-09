@@ -1,10 +1,12 @@
 package com.tera.topic.send;
 
+import org.apache.activemq.ScheduledMessage;
 import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import java.time.LocalDateTime;
 
 public class PooledJmsSenderTopic {
     public static void main(String[] args) {
@@ -26,7 +28,10 @@ public class PooledJmsSenderTopic {
             MessageProducer messageProducer = session.createProducer(topic);
 
             TextMessage message = session.createTextMessage(messagePayload);
+            long time = 60 * 1000;
+            message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, time);
 
+            System.out.println(LocalDateTime.now());
 //            Calendar calendar = Calendar.getInstance();
 //            calendar.add(Calendar.MINUTE, 5);
 //            Date date = calendar.getTime();
