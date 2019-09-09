@@ -1,4 +1,4 @@
-package com.tera.queue.send;
+package com.tera.queue.recv;
 
 import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 

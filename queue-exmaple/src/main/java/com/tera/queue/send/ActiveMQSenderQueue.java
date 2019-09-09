@@ -1,9 +1,10 @@
-package com.tera.queue.recv;
+package com.tera.queue.send;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,10 @@ public class ActiveMQSenderQueue {
             String json = mapper.writeValueAsString(lists);
             TextMessage message = session.createTextMessage(json);
 
+            System.out.println(LocalDateTime.now());
             System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
             producer.send(message);
+            System.out.println(LocalDateTime.now());
 
             session.close();
             connection.close();

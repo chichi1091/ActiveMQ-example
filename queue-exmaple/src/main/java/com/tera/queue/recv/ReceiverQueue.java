@@ -1,9 +1,10 @@
-package com.tera.queue.send;
+package com.tera.queue.recv;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.time.LocalDateTime;
 
 public class ReceiverQueue {
     public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class ReceiverQueue {
             //メッセージの受信
             TextMessage msg = (TextMessage) receiver.receive();
             System.out.println(msg.getText());
+            System.out.println(LocalDateTime.now());
         } catch (JMSException e) {
             e.printStackTrace();
         } finally {

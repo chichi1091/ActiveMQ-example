@@ -1,8 +1,9 @@
-package com.tera.queue.send;
+package com.tera.queue.recv;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.time.LocalDateTime;
 
 public class ActiveMQReceiverQueue implements ExceptionListener {
     public static void main(String[] args) {
@@ -34,6 +35,7 @@ public class ActiveMQReceiverQueue implements ExceptionListener {
             } else {
                 System.out.println("Received: " + message);
             }
+            System.out.println(LocalDateTime.now());
 
             consumer.close();
             session.close();
