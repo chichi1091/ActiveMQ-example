@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     compile group: 'org.apache.activemq', name: 'activemq-client', version: '5.15.9'
+    compile group: 'org.apache.activemq', name: 'activemq-pool', version: '5.15.9'
 
     compile group: 'org.messaginghub', name: 'pooled-jms', version: '1.0.6'
     compile group: 'org.apache.qpid', name: 'qpid-jms-client', version: '0.44.0'
